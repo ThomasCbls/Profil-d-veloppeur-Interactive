@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -112,14 +114,15 @@ fun ProductCatalogScreen(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
             Text(
                 text = "Catalogue produits",
-                style = MaterialTheme.typography.headlineMedium
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.primary
             )
         }
         item {
@@ -151,29 +154,41 @@ fun ProductListItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(modifier = modifier.fillMaxWidth()) {
-        Column(
-            modifier = Modifier.padding(16.dp)
+        Card(
+            modifier = modifier.fillMaxWidth(),
+            shape = MaterialTheme.shapes.medium,
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface
+            ),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 3.dp
+            )
         ) {
-            Text(
-                text = product.title,
-                style = MaterialTheme.typography.titleMedium
-            )
-            Text(
-                text = product.brand,
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "${product.price} € • ★ ${product.rating}",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Button(onClick = onClick) {
-                Text(text = "Voir le produit")
+            Column(
+                modifier = Modifier.padding(12.dp)
+            ) {
+                Text(
+                    text = product.title,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = product.brand,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "${product.price} € • ★ ${product.rating}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(onClick = onClick) {
+                    Text(text = "Voir le produit")
+                }
             }
         }
-    }
 }
 
 fun sampleCategories(): List<String> {
@@ -336,16 +351,18 @@ fun CategoryChip(
 ) {
     Surface(
         modifier = modifier,
-        shape = MaterialTheme.shapes.medium,
-        tonalElevation = 2.dp
+        shape = MaterialTheme.shapes.extraLarge,
+        color = MaterialTheme.colorScheme.secondary,
+        contentColor = MaterialTheme.colorScheme.onPrimary
     ) {
         Text(
             text = label,
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-            style = MaterialTheme.typography.bodyMedium
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp),
+            style = MaterialTheme.typography.labelLarge
         )
     }
 }
+
 
 @Composable
 fun CategoriesSection(
@@ -690,4 +707,32 @@ fun sampleProducts(): List<ProductUi> {
             shippingInformation = "Livraison estimée : 3 jours ouvrés"
         )
     )
+}
+
+@Preview(
+    showBackground = true,
+    name = "Catalogue - Dark Theme"
+)
+@Composable
+fun ProductCatalogScreenDarkPreview() {
+    TpJetpackComposeTheme(darkTheme = true) {
+        ProductCatalogScreen(
+            products = sampleProducts(),
+            onProductClick = {}
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    name = "Catalogue - Light Theme"
+)
+@Composable
+fun ProductCatalogScreenLightPreview() {
+    TpJetpackComposeTheme(darkTheme = false) {
+        ProductCatalogScreen(
+            products = sampleProducts(),
+            onProductClick = {}
+        )
+    }
 }
