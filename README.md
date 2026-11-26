@@ -1,103 +1,71 @@
 # Profil développeur DS
 
-Application Android réalisée avec **Kotlin** et **Jetpack Compose** dans le cadre du devoir
-« Amélioration UI de l'application Profil développeur ».
+## C'est quoi ?
 
-## Description
+Une petite application Android qui présente mon profil de développeur, un peu comme un CV
+interactif. On y trouve qui je suis, ce que je sais faire, mes projets, mes expériences,
+mes liens et un moyen de me contacter.
 
-L'application affiche le profil d'un développeur Android junior en recherche de stage :
-nom, rôle, courte description, avatar, compétences, projets, expériences, liens professionnels et zone de contact
-avec deux actions (« Contacter » et « CV »).
-Toutes les données sont **locales**, écrites directement dans le code Kotlin
-(`data/DeveloperProfile.kt`). Les boutons appellent des *callbacks* vides.
+C'est la suite du premier devoir « Profil développeur » : l'idée était de reprendre la fiche
+de base et de la rendre plus propre et plus agréable à regarder. Toutes les informations
+sont écrites directement dans le code, il n'y a pas d'internet ni de base de données derrière.
 
-## Capture d'écran
+## Aperçu
 
-| Thème clair | Thème sombre |
+| Mode clair | Mode sombre |
 |---|---|
-| ![Thème clair](screenshots/profil-clair.png) | ![Thème sombre](screenshots/profil-sombre.png) |
+| ![Mode clair](screenshots/profil-clair.png) | ![Mode sombre](screenshots/profil-sombre.png) |
 
-## Composants Compose utilisés
+## Les composants que j'ai utilisés
 
-| Composant | Utilisation |
-|---|---|
-| `Text` | Nom, rôle, description, titres de section, contenu des cartes |
-| `Button` / `OutlinedButton` | Actions « Contacter » et « CV » |
-| `Icon` | Titres de section, compétences, projets, expériences, champs de contact, badge |
-| `Image` | Avatar placeholder (vector drawable `avatar_placeholder.xml`) |
-| `Card` | `ProjectCard` et `ContactSection` |
-| `OutlinedTextField` (`readOnly = true`) | Email, localisation et disponibilité |
-| `Surface` | En-tête du profil, chips de compétences, tags de technologies, badge |
-| `AssistChip` | `LinkChip` : liens professionnels (GitHub, LinkedIn, Portfolio) |
-| `Scaffold` | Structure de l'écran dans `MainActivity` |
+- **Text** pour tous les textes : mon nom, mon rôle, les descriptions…
+- **Image** pour la photo de profil (un avatar dessiné en attendant une vraie photo)
+- **Icon** pour accompagner les titres et les infos (un petit dossier pour les projets, une enveloppe pour l'email…)
+- **Button** pour les boutons « Contacter » et « CV »
+- **Card** pour regrouper les projets et la partie contact dans des cartes
+- **OutlinedTextField** en lecture seule pour afficher mon email, ma ville et ma disponibilité
+- **AssistChip** pour les liens GitHub, LinkedIn et Portfolio
 
-## Layouts utilisés
+## Comment l'écran est organisé
 
-- **`Column`** : structure verticale de l'en-tête, des cartes et de la zone de contact.
-- **`Row`** : titre de section (icône + texte), `ExperienceItem`, tags de technologies, boutons d'action.
-- **`Box`** : avatar avec un badge « disponible » superposé en bas à droite (`ProfileAvatar`).
-- **`Spacer`** : espacements entre les éléments (`height`, `width`, et `weight` pour les boutons).
-- **`Surface`** : zone d'en-tête teintée avec `primaryContainer`, cohérente avec le thème.
+- **Column** pour empiler les éléments les uns sous les autres
+- **Row** pour mettre des éléments côte à côte, comme une icône à côté d'un titre ou les deux boutons
+- **Box** pour poser un petit badge « disponible » par-dessus la photo de profil
+- **Spacer** pour laisser respirer les éléments
+- **Surface** pour le bandeau coloré en haut avec ma présentation
 
-## Listes : `LazyColumn` et `LazyRow`
+## Les listes
 
-- **`LazyColumn`** (`ui/ProfileScreen.kt`) : l'écran entier est une `LazyColumn`. Chaque section
-  est un `item { }`, et les **projets** et **expériences** sont affichés avec
-  `items(items = ..., key = { ... })` : chaque élément utilise un composable réutilisable
-  (`ProjectCard`, `ExperienceItem`). La clé stable (`id`) permet à Compose d'identifier chaque élément.
-- **`LazyRow`** (`SkillsRow`) : liste horizontale défilable des compétences, chaque élément étant
-  rendu par le composable réutilisable `SkillChip` (nom + niveau).
-- **`LazyRow`** (`LinksRow`) : liste horizontale des **liens professionnels**, chaque lien étant rendu
-  par le composable réutilisable `LinkChip` ; le clic remonte le lien via le callback `onLinkClick`.
+Tout l'écran est une **LazyColumn** : on fait défiler le profil de haut en bas, et les
+projets et les expériences s'affichent l'un après l'autre.
 
-## Choix du thème
+Pour les compétences et les liens, j'ai utilisé des **LazyRow** : ce sont des petites bandes
+qu'on fait défiler de gauche à droite.
 
-Le thème `ProfilDeveloppeurTheme` (`ui/theme/`) personnalise les trois piliers de Material 3 :
+Chaque élément d'une liste utilise toujours le même petit composant (`SkillChip`,
+`ProjectCard`, `ExperienceItem`, `LinkChip`). Pour ajouter un projet, il suffit donc
+d'ajouter une ligne dans les données.
 
-- **`MaterialTheme.colorScheme`** : une palette **indigo** (couleur principale, « tech » et sérieuse)
-  avec un accent **sarcelle** (compétences, disponibilité) et un **ambre** tertiaire (expériences).
-  Le schéma clair utilise des teintes foncées sur fond très clair ; le schéma sombre reprend les
-  mêmes teintes éclaircies sur fond gris-bleu foncé pour garder un bon contraste.
-  Les couleurs dynamiques sont volontairement désactivées pour garder une identité identique partout.
-- **`MaterialTheme.typography`** : titres en gras (SansSerif), textes courants lisibles, et police
-  **Monospace** pour les noms de compétences afin d'évoquer le code.
-- **`MaterialTheme.shapes`** : coins arrondis progressifs (8 dp pour les petits éléments, 16 dp pour
-  les cartes, 24 dp pour l'en-tête) et forme « pilule » (`extraLarge`) pour les chips.
-- **Clair / sombre** : le thème suit `isSystemInDarkTheme()` et peut être forcé via le paramètre
-  `darkTheme`, ce qu'utilisent les previews.
+## Le thème
 
-## Previews
+J'ai choisi un **bleu indigo** comme couleur principale, parce que ça fait sérieux et « tech »,
+avec une touche de **vert** pour ce qui est positif (les compétences, la disponibilité).
 
-- `ProfileScreenLightPreview` et `ProfileScreenDarkPreview` : écran complet en clair et en sombre.
-- `ProfileHeaderPreview`, `SkillChipPreview`, `ProjectCardPreview`, `ContactSectionPreview`, `LinkChipPreview` :
-  composants isolés en thème clair.
-- `ProfileHeaderDarkPreview`, `SkillChipDarkPreview`, `ProjectCardDarkPreview`, `ContactSectionDarkPreview`,
-  `LinkChipDarkPreview` : les mêmes composants en thème sombre (`uiMode = UI_MODE_NIGHT_YES`).
+L'application marche en **mode clair et en mode sombre** : elle suit automatiquement le
+réglage du téléphone. En mode sombre, j'ai gardé les mêmes couleurs mais en plus clair,
+pour que tout reste bien lisible.
 
-## Structure du projet
+J'ai aussi arrondi les coins des cartes et des boutons, et j'ai mis les noms des
+compétences dans une police « code » pour rappeler le monde du développement.
 
-```
-app/src/main/java/com/example/tpjetpackcompose/
-├── MainActivity.kt
-├── data/DeveloperProfile.kt        # modèles + données locales
-└── ui/
-    ├── ProfileScreen.kt            # écran (LazyColumn) + previews clair/sombre
-    ├── components/
-    │   ├── ProfileHeader.kt        # Surface, Box, Image, badge
-    │   ├── SkillComponents.kt      # SectionTitle, SkillChip, SkillsRow (LazyRow)
-    │   ├── ProjectComponents.kt    # ProjectCard, TechnologyTag, ExperienceItem
-    │   ├── LinkComponents.kt       # LinkChip, LinksRow (LazyRow)
-    │   └── ContactSection.kt       # OutlinedTextField readOnly + boutons
-    └── theme/                      # Color.kt, Type.kt, Theme.kt
-```
+## Quelles notions du chapitre Compose UI avez-vous réutilisées ?
 
-## Quelles notions du chapitre Compose UI avez-vous réutilisées dans cette application ?
+J'ai réutilisé à peu près tout le chapitre :
+- les **composants de base** (textes, images, icônes, boutons, cartes) ;
+- les **layouts** pour organiser l'écran (Column, Row, Box, Spacer et Surface) ;
+- les **listes qui défilent** (LazyColumn et LazyRow), avec un composant réutilisable pour chaque élément ;
+- **Material Design 3** avec mes propres couleurs, typographie et formes ;
+- un **thème clair et un thème sombre**, que j'ai vérifiés avec les previews d'Android Studio.
 
-J'ai réutilisé les **composants fondamentaux** (`Text`, `Button`, `Icon`, `Image`, `Card`,
-`OutlinedTextField` en lecture seule), les **layouts** (`Column`, `Row`, `Box` pour superposer un
-badge sur l'avatar, `Spacer`, `Surface`), les **listes modernes** avec une `LazyColumn` pour l'écran
-et deux `LazyRow` pour les compétences et les liens, en affichant chaque élément via un **composable réutilisable**
-(`SkillChip`, `ProjectCard`, `ExperienceItem`, `LinkChip`). J'ai aussi appliqué **Material Design 3** en
-personnalisant `colorScheme`, `typography` et `shapes`, avec un **thème clair et un thème sombre**
-vérifiés grâce aux previews. Enfin, j'ai conservé les bonnes pratiques du premier devoir : paramètres,
-`Modifier` passé en argument, *callbacks* et données locales.
+J'ai aussi gardé les bonnes habitudes du premier devoir : des petits composants
+réutilisables, des paramètres, et des previews pour voir le résultat sans lancer l'application.
