@@ -15,8 +15,10 @@ import androidx.compose.material.icons.filled.Work
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.tpjetpackcompose.R
 import com.example.tpjetpackcompose.data.DeveloperProfile
 import com.example.tpjetpackcompose.data.sampleProfile
 import com.example.tpjetpackcompose.ui.components.ContactSection
@@ -58,10 +60,10 @@ fun ProfileScreen(
             )
         }
 
-        item { SectionTitle(title = "Compétences", icon = Icons.Filled.Build, modifier = horizontalPadding) }
+        item { SectionTitle(title = stringResource(R.string.section_skills), icon = Icons.Filled.Build, modifier = horizontalPadding) }
         item { SkillsRow(skills = profile.skills) }
 
-        item { SectionTitle(title = "Projets", icon = Icons.Filled.FolderOpen, modifier = horizontalPadding) }
+        item { SectionTitle(title = stringResource(R.string.section_projects), icon = Icons.Filled.FolderOpen, modifier = horizontalPadding) }
         items(
             items = profile.projects,
             key = { project -> "project-${project.id}" }
@@ -69,7 +71,7 @@ fun ProfileScreen(
             ProjectCard(project = project, modifier = horizontalPadding)
         }
 
-        item { SectionTitle(title = "Expériences", icon = Icons.Filled.Work, modifier = horizontalPadding) }
+        item { SectionTitle(title = stringResource(R.string.section_experiences), icon = Icons.Filled.Work, modifier = horizontalPadding) }
         items(
             items = profile.experiences,
             key = { experience -> "experience-${experience.id}" }
@@ -77,7 +79,7 @@ fun ProfileScreen(
             ExperienceItem(experience = experience, modifier = horizontalPadding)
         }
 
-        item { SectionTitle(title = "Contact", icon = Icons.Filled.ContactMail, modifier = horizontalPadding) }
+        item { SectionTitle(title = stringResource(R.string.section_contact), icon = Icons.Filled.ContactMail, modifier = horizontalPadding) }
         item {
             ContactSection(
                 contact = profile.contact,

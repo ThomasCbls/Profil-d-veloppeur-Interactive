@@ -25,8 +25,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.tpjetpackcompose.R
 import com.example.tpjetpackcompose.data.ContactInfo
 import com.example.tpjetpackcompose.ui.theme.ProfilDeveloppeurTheme
 
@@ -54,9 +56,9 @@ fun ContactSection(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            ReadOnlyInfoField(label = "Email", value = contact.email, icon = Icons.Filled.Email)
-            ReadOnlyInfoField(label = "Localisation", value = contact.location, icon = Icons.Filled.LocationOn)
-            ReadOnlyInfoField(label = "Disponibilité", value = contact.availability, icon = Icons.Filled.EventAvailable)
+            ReadOnlyInfoField(label = stringResource(R.string.field_email), value = contact.email, icon = Icons.Filled.Email)
+            ReadOnlyInfoField(label = stringResource(R.string.field_location), value = contact.location, icon = Icons.Filled.LocationOn)
+            ReadOnlyInfoField(label = stringResource(R.string.field_availability), value = contact.availability, icon = Icons.Filled.EventAvailable)
 
             Row(modifier = Modifier.fillMaxWidth()) {
                 Button(
@@ -69,7 +71,7 @@ fun ContactSection(
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "Contacter")
+                    Text(text = stringResource(R.string.action_contact))
                 }
                 Spacer(modifier = Modifier.width(12.dp))
                 OutlinedButton(
@@ -82,7 +84,7 @@ fun ContactSection(
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "CV")
+                    Text(text = stringResource(R.string.action_download_cv))
                 }
             }
         }

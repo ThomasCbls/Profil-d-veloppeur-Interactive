@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Profil développeur DS</string>
+
+    <!-- En-tête du profil -->
+    <string name="avatar_content_description">Avatar du développeur</string>
+    <string name="available_badge_description">Disponible</string>
+    <string name="open_to_opportunities">Ouvert aux opportunités</string>
+
+    <!-- Titres de section -->
+    <string name="section_skills">Compétences</string>
+    <string name="section_projects">Projets</string>
+    <string name="section_experiences">Expériences</string>
+    <string name="section_contact">Contact</string>
+
+    <!-- Zone de contact -->
+    <string name="field_email">Email</string>
+    <string name="field_location">Localisation</string>
+    <string name="field_availability">Disponibilité</string>
+    <string name="action_contact">Contacter</string>
+    <string name="action_download_cv">CV</string>
 </resources>

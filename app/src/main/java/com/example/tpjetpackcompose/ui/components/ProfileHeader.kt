@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -89,7 +90,7 @@ fun ProfileAvatar(
     Box(modifier = modifier) {
         Image(
             painter = painterResource(id = R.drawable.avatar_placeholder),
-            contentDescription = "Avatar du développeur",
+            contentDescription = stringResource(R.string.avatar_content_description),
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(112.dp)
@@ -108,7 +109,7 @@ fun ProfileAvatar(
             ) {
                 Icon(
                     imageVector = Icons.Filled.CheckCircle,
-                    contentDescription = "Disponible",
+                    contentDescription = stringResource(R.string.available_badge_description),
                     modifier = Modifier.padding(4.dp)
                 )
             }
@@ -130,7 +131,7 @@ private fun AvailabilityRow(modifier: Modifier = Modifier) {
         ) {}
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = "Ouvert aux opportunités",
+            text = stringResource(R.string.open_to_opportunities),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.secondary
         )
