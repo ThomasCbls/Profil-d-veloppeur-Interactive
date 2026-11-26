@@ -1,5 +1,6 @@
 package com.example.tpjetpackcompose.ui.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -142,6 +143,25 @@ private fun AvailabilityRow(modifier: Modifier = Modifier) {
 @Composable
 private fun ProfileHeaderPreview() {
     ProfilDeveloppeurTheme {
+        ProfileHeader(
+            name = "Thomas Camboulas",
+            role = "Développeur Android junior",
+            description = "Étudiant passionné par le développement mobile.",
+            isAvailable = true,
+            modifier = Modifier.padding(16.dp)
+        )
+    }
+}
+
+@Preview(
+    name = "ProfileHeader - Thème sombre",
+    showBackground = true,
+    backgroundColor = 0xFF121318,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun ProfileHeaderDarkPreview() {
+    ProfilDeveloppeurTheme(darkTheme = true) {
         ProfileHeader(
             name = "Thomas Camboulas",
             role = "Développeur Android junior",

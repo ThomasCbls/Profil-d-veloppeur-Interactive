@@ -1,5 +1,6 @@
 package com.example.tpjetpackcompose.ui.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -114,6 +115,22 @@ fun SkillsRow(
 @Composable
 private fun SkillChipPreview() {
     ProfilDeveloppeurTheme {
+        SkillChip(
+            skill = Skill("Kotlin", SkillLevel.ADVANCED),
+            modifier = Modifier.padding(8.dp)
+        )
+    }
+}
+
+@Preview(
+    name = "SkillChip - Thème sombre",
+    showBackground = true,
+    backgroundColor = 0xFF121318,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun SkillChipDarkPreview() {
+    ProfilDeveloppeurTheme(darkTheme = true) {
         SkillChip(
             skill = Skill("Kotlin", SkillLevel.ADVANCED),
             modifier = Modifier.padding(8.dp)

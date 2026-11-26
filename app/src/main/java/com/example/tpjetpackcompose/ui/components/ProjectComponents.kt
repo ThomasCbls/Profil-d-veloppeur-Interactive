@@ -1,5 +1,6 @@
 package com.example.tpjetpackcompose.ui.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -144,6 +145,27 @@ fun ExperienceItem(
 @Composable
 private fun ProjectCardPreview() {
     ProfilDeveloppeurTheme {
+        ProjectCard(
+            project = Project(
+                id = 1,
+                title = "Product Explorer",
+                description = "Catalogue de produits avec liste et fiche détail.",
+                technologies = listOf("Kotlin", "Compose")
+            ),
+            modifier = Modifier.padding(16.dp)
+        )
+    }
+}
+
+@Preview(
+    name = "ProjectCard - Thème sombre",
+    showBackground = true,
+    backgroundColor = 0xFF121318,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun ProjectCardDarkPreview() {
+    ProfilDeveloppeurTheme(darkTheme = true) {
         ProjectCard(
             project = Project(
                 id = 1,

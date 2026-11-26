@@ -1,5 +1,6 @@
 package com.example.tpjetpackcompose.ui.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -78,6 +79,23 @@ fun LinksRow(
 @Composable
 private fun LinkChipPreview() {
     ProfilDeveloppeurTheme {
+        LinkChip(
+            link = ProfessionalLink(label = "GitHub", url = "https://github.com/ThomasCbls"),
+            onClick = {},
+            modifier = Modifier.padding(8.dp)
+        )
+    }
+}
+
+@Preview(
+    name = "LinkChip - Thème sombre",
+    showBackground = true,
+    backgroundColor = 0xFF121318,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun LinkChipDarkPreview() {
+    ProfilDeveloppeurTheme(darkTheme = true) {
         LinkChip(
             link = ProfessionalLink(label = "GitHub", url = "https://github.com/ThomasCbls"),
             onClick = {},

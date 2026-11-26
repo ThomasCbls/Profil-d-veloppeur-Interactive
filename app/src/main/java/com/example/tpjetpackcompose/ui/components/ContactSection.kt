@@ -1,5 +1,6 @@
 package com.example.tpjetpackcompose.ui.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -126,6 +127,28 @@ fun ReadOnlyInfoField(
 @Composable
 private fun ContactSectionPreview() {
     ProfilDeveloppeurTheme {
+        ContactSection(
+            contact = ContactInfo(
+                email = "thomas.camboulas@example.com",
+                location = "France",
+                availability = "Stage dès maintenant"
+            ),
+            onContactClick = {},
+            onDownloadCvClick = {},
+            modifier = Modifier.padding(16.dp)
+        )
+    }
+}
+
+@Preview(
+    name = "ContactSection - Thème sombre",
+    showBackground = true,
+    backgroundColor = 0xFF121318,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun ContactSectionDarkPreview() {
+    ProfilDeveloppeurTheme(darkTheme = true) {
         ContactSection(
             contact = ContactInfo(
                 email = "thomas.camboulas@example.com",

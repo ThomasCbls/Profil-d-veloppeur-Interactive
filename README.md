@@ -70,7 +70,9 @@ Le thème `ProfilDeveloppeurTheme` (`ui/theme/`) personnalise les trois piliers 
 
 - `ProfileScreenLightPreview` et `ProfileScreenDarkPreview` : écran complet en clair et en sombre.
 - `ProfileHeaderPreview`, `SkillChipPreview`, `ProjectCardPreview`, `ContactSectionPreview`, `LinkChipPreview` :
-  composants isolés.
+  composants isolés en thème clair.
+- `ProfileHeaderDarkPreview`, `SkillChipDarkPreview`, `ProjectCardDarkPreview`, `ContactSectionDarkPreview`,
+  `LinkChipDarkPreview` : les mêmes composants en thème sombre (`uiMode = UI_MODE_NIGHT_YES`).
 
 ## Structure du projet
 
