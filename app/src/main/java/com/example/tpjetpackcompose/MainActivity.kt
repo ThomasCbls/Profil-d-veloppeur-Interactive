@@ -36,7 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.tpjetpackcompose.ui.theme.TpJetpackComposeTheme
+import com.example.tpjetpackcompose.ui.theme.ProfilDeveloppeurTheme
 
 // data
 data class ProductUi(
@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TpJetpackComposeTheme {
+            ProfilDeveloppeurTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     ProductCatalogScreen(
                         products = sampleProducts(),
@@ -212,7 +212,7 @@ fun CategoryRow(
 @Preview(showBackground = true)
 @Composable
 fun ProductCatalogScreenPreview() {
-    TpJetpackComposeTheme {
+    ProfilDeveloppeurTheme {
         ProductCatalogScreen(
             products = sampleProducts(),
             onProductClick = {}
@@ -428,7 +428,7 @@ fun DailyOfferBox(
 @Preview(showBackground = true)
 @Composable
 fun ProductHomeScreenPreview() {
-    TpJetpackComposeTheme {
+    ProfilDeveloppeurTheme {
         ProductHomeScreen(
             featuredProduct = sampleProduct(),
             onFeaturedProductClick = {}
@@ -645,7 +645,7 @@ fun AddToCartButton(
 @Preview(showBackground = true)
 @Composable
 fun ProductDetailScreenPreview() {
-    TpJetpackComposeTheme {
+    ProfilDeveloppeurTheme {
         ProductDetailScreen(
             product = sampleProduct(),
             onAddToCartClick = {}
@@ -656,7 +656,7 @@ fun ProductDetailScreenPreview() {
 @Preview(showBackground = true)
 @Composable
 fun ProductDetailScreenOutOfStockPreview() {
-    TpJetpackComposeTheme {
+    ProfilDeveloppeurTheme {
         ProductDetailScreen(
             product = sampleProductOutOfStock(),
             onAddToCartClick = {}
@@ -715,7 +715,7 @@ fun sampleProducts(): List<ProductUi> {
 )
 @Composable
 fun ProductCatalogScreenDarkPreview() {
-    TpJetpackComposeTheme(darkTheme = true) {
+    ProfilDeveloppeurTheme(darkTheme = true) {
         ProductCatalogScreen(
             products = sampleProducts(),
             onProductClick = {}
@@ -729,7 +729,7 @@ fun ProductCatalogScreenDarkPreview() {
 )
 @Composable
 fun ProductCatalogScreenLightPreview() {
-    TpJetpackComposeTheme(darkTheme = false) {
+    ProfilDeveloppeurTheme(darkTheme = false) {
         ProductCatalogScreen(
             products = sampleProducts(),
             onProductClick = {}
