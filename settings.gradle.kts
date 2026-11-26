@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Tp jetpack compose"
+rootProject.name = "Profil developpeur DS"
 include(":app")
  
