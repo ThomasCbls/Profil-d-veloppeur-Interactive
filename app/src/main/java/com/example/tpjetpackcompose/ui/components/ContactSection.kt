@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -63,7 +64,9 @@ fun ContactSection(
             Row(modifier = Modifier.fillMaxWidth()) {
                 Button(
                     onClick = onContactClick,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .heightIn(min = 48.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Send,
@@ -76,7 +79,9 @@ fun ContactSection(
                 Spacer(modifier = Modifier.width(12.dp))
                 OutlinedButton(
                     onClick = onDownloadCvClick,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .heightIn(min = 48.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Description,
