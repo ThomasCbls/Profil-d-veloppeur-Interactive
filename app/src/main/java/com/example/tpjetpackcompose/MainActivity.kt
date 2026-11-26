@@ -27,6 +27,9 @@ class MainActivity : ComponentActivity() {
                         onDownloadCvClick = {
                             // Pas de vraie action : téléchargerait le CV plus tard
                         },
+                        onLinkClick = {
+                            // Pas de vraie action : ouvrirait le lien dans le navigateur plus tard
+                        },
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

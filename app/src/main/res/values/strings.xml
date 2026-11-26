@@ -10,6 +10,7 @@
     <string name="section_skills">Compétences</string>
     <string name="section_projects">Projets</string>
     <string name="section_experiences">Expériences</string>
+    <string name="section_links">Liens</string>
     <string name="section_contact">Contact</string>
 
     <!-- Zone de contact -->

@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.ContactMail
 import androidx.compose.material.icons.filled.FolderOpen
+import androidx.compose.material.icons.filled.Link
 import androidx.compose.material.icons.filled.Work
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -20,9 +21,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tpjetpackcompose.R
 import com.example.tpjetpackcompose.data.DeveloperProfile
+import com.example.tpjetpackcompose.data.ProfessionalLink
 import com.example.tpjetpackcompose.data.sampleProfile
 import com.example.tpjetpackcompose.ui.components.ContactSection
 import com.example.tpjetpackcompose.ui.components.ExperienceItem
+import com.example.tpjetpackcompose.ui.components.LinksRow
 import com.example.tpjetpackcompose.ui.components.ProfileHeader
 import com.example.tpjetpackcompose.ui.components.ProjectCard
 import com.example.tpjetpackcompose.ui.components.SectionTitle
@@ -39,6 +42,7 @@ fun ProfileScreen(
     profile: DeveloperProfile,
     onContactClick: () -> Unit,
     onDownloadCvClick: () -> Unit,
+    onLinkClick: (ProfessionalLink) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val horizontalPadding = Modifier.padding(horizontal = 16.dp)
@@ -79,6 +83,9 @@ fun ProfileScreen(
             ExperienceItem(experience = experience, modifier = horizontalPadding)
         }
 
+        item { SectionTitle(title = stringResource(R.string.section_links), icon = Icons.Filled.Link, modifier = horizontalPadding) }
+        item { LinksRow(links = profile.links, onLinkClick = onLinkClick) }
+
         item { SectionTitle(title = stringResource(R.string.section_contact), icon = Icons.Filled.ContactMail, modifier = horizontalPadding) }
         item {
             ContactSection(
@@ -102,7 +109,8 @@ fun ProfileScreenLightPreview() {
         ProfileScreen(
             profile = sampleProfile(),
             onContactClick = {},
-            onDownloadCvClick = {}
+            onDownloadCvClick = {},
+            onLinkClick = {}
         )
     }
 }
@@ -119,7 +127,8 @@ fun ProfileScreenDarkPreview() {
         ProfileScreen(
             profile = sampleProfile(),
             onContactClick = {},
-            onDownloadCvClick = {}
+            onDownloadCvClick = {},
+            onLinkClick = {}
         )
     }
 }

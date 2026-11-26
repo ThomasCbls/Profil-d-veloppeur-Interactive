@@ -12,6 +12,7 @@ data class DeveloperProfile(
     val skills: List<Skill>,
     val projects: List<Project>,
     val experiences: List<Experience>,
+    val links: List<ProfessionalLink>,
     val contact: ContactInfo
 )
 
@@ -38,6 +39,11 @@ data class Experience(
     val position: String,
     val company: String,
     val period: String
+)
+
+data class ProfessionalLink(
+    val label: String,
+    val url: String
 )
 
 data class ContactInfo(
@@ -94,6 +100,11 @@ fun sampleProfile(): DeveloperProfile = DeveloperProfile(
             company = "École",
             period = "2025"
         )
+    ),
+    links = listOf(
+        ProfessionalLink(label = "GitHub", url = "https://github.com/ThomasCbls"),
+        ProfessionalLink(label = "LinkedIn", url = "https://www.linkedin.com/in/votre-profil"),
+        ProfessionalLink(label = "Portfolio", url = "https://portfolio.example.com")
     ),
     contact = ContactInfo(
         email = "thomas.camboulas@example.com",

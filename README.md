@@ -6,7 +6,7 @@ Application Android réalisée avec **Kotlin** et **Jetpack Compose** dans le ca
 ## Description
 
 L'application affiche le profil d'un développeur Android junior en recherche de stage :
-nom, rôle, courte description, avatar, compétences, projets, expériences et zone de contact
+nom, rôle, courte description, avatar, compétences, projets, expériences, liens professionnels et zone de contact
 avec deux actions (« Contacter » et « CV »).
 Toutes les données sont **locales**, écrites directement dans le code Kotlin
 (`data/DeveloperProfile.kt`). Les boutons appellent des *callbacks* vides.
@@ -28,6 +28,7 @@ Toutes les données sont **locales**, écrites directement dans le code Kotlin
 | `Card` | `ProjectCard` et `ContactSection` |
 | `OutlinedTextField` (`readOnly = true`) | Email, localisation et disponibilité |
 | `Surface` | En-tête du profil, chips de compétences, tags de technologies, badge |
+| `AssistChip` | `LinkChip` : liens professionnels (GitHub, LinkedIn, Portfolio) |
 | `Scaffold` | Structure de l'écran dans `MainActivity` |
 
 ## Layouts utilisés
@@ -46,6 +47,8 @@ Toutes les données sont **locales**, écrites directement dans le code Kotlin
   (`ProjectCard`, `ExperienceItem`). La clé stable (`id`) permet à Compose d'identifier chaque élément.
 - **`LazyRow`** (`SkillsRow`) : liste horizontale défilable des compétences, chaque élément étant
   rendu par le composable réutilisable `SkillChip` (nom + niveau).
+- **`LazyRow`** (`LinksRow`) : liste horizontale des **liens professionnels**, chaque lien étant rendu
+  par le composable réutilisable `LinkChip` ; le clic remonte le lien via le callback `onLinkClick`.
 
 ## Choix du thème
 
@@ -66,7 +69,7 @@ Le thème `ProfilDeveloppeurTheme` (`ui/theme/`) personnalise les trois piliers 
 ## Previews
 
 - `ProfileScreenLightPreview` et `ProfileScreenDarkPreview` : écran complet en clair et en sombre.
-- `ProfileHeaderPreview`, `SkillChipPreview`, `ProjectCardPreview`, `ContactSectionPreview` :
+- `ProfileHeaderPreview`, `SkillChipPreview`, `ProjectCardPreview`, `ContactSectionPreview`, `LinkChipPreview` :
   composants isolés.
 
 ## Structure du projet
@@ -81,6 +84,7 @@ app/src/main/java/com/example/tpjetpackcompose/
     │   ├── ProfileHeader.kt        # Surface, Box, Image, badge
     │   ├── SkillComponents.kt      # SectionTitle, SkillChip, SkillsRow (LazyRow)
     │   ├── ProjectComponents.kt    # ProjectCard, TechnologyTag, ExperienceItem
+    │   ├── LinkComponents.kt       # LinkChip, LinksRow (LazyRow)
     │   └── ContactSection.kt       # OutlinedTextField readOnly + boutons
     └── theme/                      # Color.kt, Type.kt, Theme.kt
 ```
@@ -90,8 +94,8 @@ app/src/main/java/com/example/tpjetpackcompose/
 J'ai réutilisé les **composants fondamentaux** (`Text`, `Button`, `Icon`, `Image`, `Card`,
 `OutlinedTextField` en lecture seule), les **layouts** (`Column`, `Row`, `Box` pour superposer un
 badge sur l'avatar, `Spacer`, `Surface`), les **listes modernes** avec une `LazyColumn` pour l'écran
-et une `LazyRow` pour les compétences, en affichant chaque élément via un **composable réutilisable**
-(`SkillChip`, `ProjectCard`, `ExperienceItem`). J'ai aussi appliqué **Material Design 3** en
+et deux `LazyRow` pour les compétences et les liens, en affichant chaque élément via un **composable réutilisable**
+(`SkillChip`, `ProjectCard`, `ExperienceItem`, `LinkChip`). J'ai aussi appliqué **Material Design 3** en
 personnalisant `colorScheme`, `typography` et `shapes`, avec un **thème clair et un thème sombre**
 vérifiés grâce aux previews. Enfin, j'ai conservé les bonnes pratiques du premier devoir : paramètres,
 `Modifier` passé en argument, *callbacks* et données locales.
