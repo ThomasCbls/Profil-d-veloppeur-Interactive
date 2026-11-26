@@ -15,14 +15,17 @@ import androidx.compose.material.icons.filled.Work
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tpjetpackcompose.data.DeveloperProfile
+import com.example.tpjetpackcompose.data.sampleProfile
 import com.example.tpjetpackcompose.ui.components.ContactSection
 import com.example.tpjetpackcompose.ui.components.ExperienceItem
 import com.example.tpjetpackcompose.ui.components.ProfileHeader
 import com.example.tpjetpackcompose.ui.components.ProjectCard
 import com.example.tpjetpackcompose.ui.components.SectionTitle
 import com.example.tpjetpackcompose.ui.components.SkillsRow
+import com.example.tpjetpackcompose.ui.theme.ProfilDeveloppeurTheme
 
 /**
  * Écran principal du profil. Toute la page est une LazyColumn :
@@ -83,5 +86,38 @@ fun ProfileScreen(
                 modifier = horizontalPadding
             )
         }
+    }
+}
+
+@Preview(
+    name = "Profil - Thème clair",
+    showBackground = true,
+    heightDp = 1600
+)
+@Composable
+fun ProfileScreenLightPreview() {
+    ProfilDeveloppeurTheme(darkTheme = false) {
+        ProfileScreen(
+            profile = sampleProfile(),
+            onContactClick = {},
+            onDownloadCvClick = {}
+        )
+    }
+}
+
+@Preview(
+    name = "Profil - Thème sombre",
+    showBackground = true,
+    backgroundColor = 0xFF121318,
+    heightDp = 1600
+)
+@Composable
+fun ProfileScreenDarkPreview() {
+    ProfilDeveloppeurTheme(darkTheme = true) {
+        ProfileScreen(
+            profile = sampleProfile(),
+            onContactClick = {},
+            onDownloadCvClick = {}
+        )
     }
 }
