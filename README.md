@@ -1,71 +1,43 @@
-# Profil développeur DS
+# Profil développeur interactif
 
-## C'est quoi ?
+## Description
 
-Une petite application Android qui présente mon profil de développeur, un peu comme un CV
-interactif. On y trouve qui je suis, ce que je sais faire, mes projets, mes expériences,
-mes liens et un moyen de me contacter.
+Application Jetpack Compose qui présente mon profil de développeur. On peut maintenant rechercher un projet (titre, description ou technologie), ajouter ou retirer un projet des favoris, afficher uniquement les favoris et voir le nombre de projets affichés.
 
-C'est la suite du premier devoir « Profil développeur » : l'idée était de reprendre la fiche
-de base et de la rendre plus propre et plus agréable à regarder. Toutes les informations
-sont écrites directement dans le code, il n'y a pas d'internet ni de base de données derrière.
+## États gérés
 
-## Aperçu
+- texte de recherche (`searchQuery`)
+- filtre favoris (`showOnlyFavorites`)
+- projets favoris (`favoriteProjectIds`)
+- liste affichée (`visibleProjects`)
 
-| Mode clair | Mode sombre |
-|---|---|
-| ![Mode clair](screenshots/profil-clair.png) | ![Mode sombre](screenshots/profil-sombre.png) |
+## État local
 
-## Les composants que j'ai utilisés
+L'affichage des informations de contact (`showDetails`) est géré dans `ContactSection` avec `rememberSaveable`. C'est un simple état visuel qui ne concerne que ce composant, donc pas besoin de le mettre dans le ViewModel.
 
-- **Text** pour tous les textes : mon nom, mon rôle, les descriptions…
-- **Image** pour la photo de profil (un avatar dessiné en attendant une vraie photo)
-- **Icon** pour accompagner les titres et les infos (un petit dossier pour les projets, une enveloppe pour l'email…)
-- **Button** pour les boutons « Contacter » et « CV »
-- **Card** pour regrouper les projets et la partie contact dans des cartes
-- **OutlinedTextField** en lecture seule pour afficher mon email, ma ville et ma disponibilité
-- **AssistChip** pour les liens GitHub, LinkedIn et Portfolio
+## State Hoisting
 
-## Comment l'écran est organisé
+`ProfileScreen` ne stocke aucun état : il reçoit les valeurs en paramètres et remonte les actions par des callbacks (`onSearchQueryChange`, `onToggleFavoriteFilter`, `onFavoriteClick`). C'est pour ça qu'il est stateless et qu'on peut l'utiliser directement dans les previews.
 
-- **Column** pour empiler les éléments les uns sous les autres
-- **Row** pour mettre des éléments côte à côte, comme une icône à côté d'un titre ou les deux boutons
-- **Box** pour poser un petit badge « disponible » par-dessus la photo de profil
-- **Spacer** pour laisser respirer les éléments
-- **Surface** pour le bandeau coloré en haut avec ma présentation
+## ViewModel
 
-## Les listes
+`ProfileViewModel` garde l'état principal de l'écran et contient les actions qui le modifient (recherche, favori, filtre).
 
-Tout l'écran est une **LazyColumn** : on fait défiler le profil de haut en bas, et les
-projets et les expériences s'affichent l'un après l'autre.
+## StateFlow
 
-Pour les compétences et les liens, j'ai utilisé des **LazyRow** : ce sont des petites bandes
-qu'on fait défiler de gauche à droite.
+Le ViewModel garde un `MutableStateFlow` privé et expose un `StateFlow` en lecture seule. `ProfileContainer` le collecte avec `collectAsState()`. Quand le ViewModel publie un nouvel état, Compose recompose l'écran automatiquement.
 
-Chaque élément d'une liste utilise toujours le même petit composant (`SkillChip`,
-`ProjectCard`, `ExperienceItem`, `LinkChip`). Pour ajouter un projet, il suffit donc
-d'ajouter une ligne dans les données.
+## Organisation du code
 
-## Le thème
+- `ProfileViewModel` : gère l'état et les actions
+- `ProfileUiState` : regroupe l'état de l'écran et calcule la liste affichée
+- `ProfileContainer` : relie le ViewModel à Compose
+- `ProfileScreen` : affiche l'écran (stateless)
+- `ProjectCard` : carte d'un projet avec bouton favori
+- `ProjectSearchBar` : champ de recherche
+- `ProjectFilterRow` : nombre de projets et filtre favoris
+- `ContactSection` : contact avec état local
 
-J'ai choisi un **bleu indigo** comme couleur principale, parce que ça fait sérieux et « tech »,
-avec une touche de **vert** pour ce qui est positif (les compétences, la disponibilité).
+## Capture d'écran
 
-L'application marche en **mode clair et en mode sombre** : elle suit automatiquement le
-réglage du téléphone. En mode sombre, j'ai gardé les mêmes couleurs mais en plus clair,
-pour que tout reste bien lisible.
-
-J'ai aussi arrondi les coins des cartes et des boutons, et j'ai mis les noms des
-compétences dans une police « code » pour rappeler le monde du développement.
-
-## Quelles notions du chapitre Compose UI avez-vous réutilisées ?
-
-J'ai réutilisé à peu près tout le chapitre :
-- les **composants de base** (textes, images, icônes, boutons, cartes) ;
-- les **layouts** pour organiser l'écran (Column, Row, Box, Spacer et Surface) ;
-- les **listes qui défilent** (LazyColumn et LazyRow), avec un composant réutilisable pour chaque élément ;
-- **Material Design 3** avec mes propres couleurs, typographie et formes ;
-- un **thème clair et un thème sombre**, que j'ai vérifiés avec les previews d'Android Studio.
-
-J'ai aussi gardé les bonnes habitudes du premier devoir : des petits composants
-réutilisables, des paramètres, et des previews pour voir le résultat sans lancer l'application.
+![Profil interactif](screenshots/profil-interactif.png)
