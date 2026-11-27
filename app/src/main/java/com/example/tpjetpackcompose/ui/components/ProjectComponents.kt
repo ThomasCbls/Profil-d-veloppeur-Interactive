@@ -12,34 +12,39 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.FolderOpen
 import androidx.compose.material.icons.filled.Work
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.tpjetpackcompose.R
 import com.example.tpjetpackcompose.data.Experience
 import com.example.tpjetpackcompose.data.Project
 import com.example.tpjetpackcompose.ui.theme.ProfilDeveloppeurTheme
 
-/** Carte réutilisable présentant un projet et ses technologies. */
+/** Carte réutilisable présentant un projet, ses technologies et son état favori. */
 @Composable
 fun ProjectCard(
     project: Project,
+    isFavorite: Boolean,
+    onFavoriteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .semantics(mergeDescendants = true) {},
+        modifier = modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface,
@@ -57,8 +62,10 @@ fun ProjectCard(
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = project.title,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.weight(1f)
                 )
+                FavoriteButton(isFavorite = isFavorite, onClick = onFavoriteClick)
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -73,6 +80,24 @@ fun ProjectCard(
                 }
             }
         }
+    }
+}
+
+/** Bouton cœur : plein si le projet est favori, vide sinon. */
+@Composable
+fun FavoriteButton(
+    isFavorite: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    IconButton(onClick = onClick, modifier = modifier) {
+        Icon(
+            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+            contentDescription = stringResource(
+                if (isFavorite) R.string.favorite_remove else R.string.favorite_add
+            ),
+            tint = if (isFavorite) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+        )
     }
 }
 
@@ -152,6 +177,8 @@ private fun ProjectCardPreview() {
                 description = "Catalogue de produits avec liste et fiche détail.",
                 technologies = listOf("Kotlin", "Compose")
             ),
+            isFavorite = true,
+            onFavoriteClick = {},
             modifier = Modifier.padding(16.dp)
         )
     }
@@ -173,6 +200,8 @@ private fun ProjectCardDarkPreview() {
                 description = "Catalogue de produits avec liste et fiche détail.",
                 technologies = listOf("Kotlin", "Compose")
             ),
+            isFavorite = true,
+            onFavoriteClick = {},
             modifier = Modifier.padding(16.dp)
         )
     }

@@ -23,4 +23,14 @@
     <!-- Recherche -->
     <string name="search_placeholder">Rechercher un projet ou une techno</string>
     <string name="search_clear">Effacer la recherche</string>
+
+    <!-- Favoris -->
+    <string name="favorite_add">Ajouter aux favoris</string>
+    <string name="favorite_remove">Retirer des favoris</string>
+    <string name="filter_favorites">Favoris uniquement</string>
+    <string name="no_project_found">Aucun projet ne correspond.</string>
+    <plurals name="visible_projects">
+        <item quantity="one">%d projet affiché</item>
+        <item quantity="other">%d projets affichés</item>
+    </plurals>
 </resources>
