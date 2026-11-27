@@ -19,4 +19,8 @@
     <string name="field_availability">Disponibilité</string>
     <string name="action_contact">Contacter</string>
     <string name="action_download_cv">CV</string>
+
+    <!-- Recherche -->
+    <string name="search_placeholder">Rechercher un projet ou une techno</string>
+    <string name="search_clear">Effacer la recherche</string>
 </resources>
