@@ -85,6 +85,12 @@ fun sampleProfile(): DeveloperProfile = DeveloperProfile(
             title = "WatchList",
             description = "Application pour suivre les films et séries à regarder.",
             technologies = listOf("Kotlin", "Android")
+        ),
+        Project(
+            id = 4,
+            title = "Portfolio web",
+            description = "Site personnel présentant mes projets et mon parcours.",
+            technologies = listOf("HTML", "CSS", "JavaScript")
         )
     ),
     experiences = listOf(
