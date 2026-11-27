@@ -1,6 +1,7 @@
 package com.example.tpjetpackcompose.ui.components
 
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.EventAvailable
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Button
@@ -24,7 +27,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -54,13 +62,36 @@ fun ContactSection(
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
+        // État local d'interface : simple affichage/masquage, inutile de le remonter au ViewModel.
+        var showDetails by rememberSaveable { mutableStateOf(false) }
+
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            ReadOnlyInfoField(label = stringResource(R.string.field_email), value = contact.email, icon = Icons.Filled.Email)
-            ReadOnlyInfoField(label = stringResource(R.string.field_location), value = contact.location, icon = Icons.Filled.LocationOn)
-            ReadOnlyInfoField(label = stringResource(R.string.field_availability), value = contact.availability, icon = Icons.Filled.EventAvailable)
+            TextButton(
+                onClick = { showDetails = !showDetails },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(
+                    imageVector = if (showDetails) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+                    contentDescription = null
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = stringResource(
+                        if (showDetails) R.string.contact_hide else R.string.contact_show
+                    )
+                )
+            }
+
+            AnimatedVisibility(visible = showDetails) {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    ReadOnlyInfoField(label = stringResource(R.string.field_email), value = contact.email, icon = Icons.Filled.Email)
+                    ReadOnlyInfoField(label = stringResource(R.string.field_location), value = contact.location, icon = Icons.Filled.LocationOn)
+                    ReadOnlyInfoField(label = stringResource(R.string.field_availability), value = contact.availability, icon = Icons.Filled.EventAvailable)
+                }
+            }
 
             Row(modifier = Modifier.fillMaxWidth()) {
                 Button(

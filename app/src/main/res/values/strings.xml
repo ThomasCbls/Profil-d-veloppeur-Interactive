@@ -19,6 +19,8 @@
     <string name="field_availability">Disponibilité</string>
     <string name="action_contact">Contacter</string>
     <string name="action_download_cv">CV</string>
+    <string name="contact_show">Afficher les informations de contact</string>
+    <string name="contact_hide">Masquer les informations de contact</string>
 
     <!-- Recherche -->
     <string name="search_placeholder">Rechercher un projet ou une techno</string>
