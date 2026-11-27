@@ -40,4 +40,6 @@ Le ViewModel garde un `MutableStateFlow` privé et expose un `StateFlow` en lect
 
 ## Capture d'écran
 
-![Profil interactif](screenshots/profil-interactif.png)
+| Recherche + favoris | Filtre favoris | Contact (état local) |
+|---|---|---|
+| ![Recherche](screenshots/profil-interactif.png) | ![Favoris](screenshots/filtre-favoris.png) | ![Contact](screenshots/contact-affiche.png) |
